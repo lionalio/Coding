@@ -77,7 +77,7 @@ class HandlingOperator():
 
     def find_cheapest_operator(self):
         '''
-        find the operator with the cheapest price for a given dial number
+        Find the operator with the cheapest price for a given dial number
 
         Args:
             None
@@ -91,9 +91,6 @@ class HandlingOperator():
                 if prefix in pricelist:
                     prices[operator] = pricelist[prefix]
                     break
-
-        # OK, we have found all operator whose price for longest dial prefix is available
-        # Now let's return the operator with minimum price:
 
         return min(prices)
 
