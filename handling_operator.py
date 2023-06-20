@@ -41,7 +41,10 @@ class HandlingOperator():
         Returns:
             list of all prefixes from dial number
         """
-        return [self._dial_number[:i+1] for i in range(len(self._dial_number))].reverse()
+        ls = [self._dial_number[:i+1] for i in range(len(self._dial_number)-1)]
+        ls.reverse()
+        
+        return ls
 
     def add_pricelist(self, pricelist):
         '''
@@ -71,7 +74,7 @@ class HandlingOperator():
         with open(pricelist) as f:
             for line in f:
                 key, val = line.split()
-                d[str(key)] = val
+                d[str(key)] = float(val)
         
         return d
 
@@ -92,7 +95,11 @@ class HandlingOperator():
                     prices[operator] = pricelist[prefix]
                     break
 
-        return min(prices)
+        if prices:
+            return min(prices, key=prices.get)
+        else:
+            print('No operator with minimum price exist with number ', self._dial_number)
+            return ''
 
 
 if __name__ == "__main__":
@@ -100,15 +107,17 @@ if __name__ == "__main__":
     handling = HandlingOperator()
 
     # If the pricelists are provided somewhere, let's add it into the handling
-    pricelists = ['operator_1', 'operator_2']
+    pricelists = ['operator_A.txt', 'operator_B.txt']
     for list in pricelists:
         handling.add_pricelist(list)
 
     # Now, the dial number is provided somewhere:
     dial = '4673212345'
-    handling.dial_number(dial)
-
+    handling.dial_number = dial
+    
     # Find the operator providing the cheapest price:
     cheapest_operator = handling.find_cheapest_operator()
+    assert cheapest_operator == 'operator_B.txt'
+    print('operator with cheapest price is: ', cheapest_operator)
 
 
