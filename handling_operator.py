@@ -1,5 +1,3 @@
-
-
 class HandlingOperator():
     '''
     Class for handling pricelist of all operators
@@ -60,6 +58,19 @@ class HandlingOperator():
         if pricelist not in self.pricelists:
             self.pricelists[pricelist] = d
 
+    def add_all_pricelists(self, pricelists):
+        '''
+        Add all pricelists available into the pricelist dictionary
+
+        Args:
+            pricelists (list): a list of pricelist file
+
+        Returns:
+            None
+        '''
+        for list in pricelists:
+            self.add_pricelist(list)
+
     def load_pricelist_to_dict(self, pricelist):
         '''
         Load a file containing pricelist into dictionary
@@ -70,6 +81,7 @@ class HandlingOperator():
         Returns:
             dictionary of key of prefix and value of price
         '''
+
         d = {}
         with open(pricelist) as f:
             for line in f:
@@ -98,26 +110,8 @@ class HandlingOperator():
         if prices:
             return min(prices, key=prices.get)
         else:
-            print('No operator with minimum price exist with number ', self._dial_number)
+            print('Warning: No operator with minimum price exist with number ', self._dial_number)
             return ''
 
-
-if __name__ == "__main__":
-    # Let's create the object of handling dial list here:
-    handling = HandlingOperator()
-
-    # If the pricelists are provided somewhere, let's add it into the handling
-    pricelists = ['operator_A.txt', 'operator_B.txt']
-    for list in pricelists:
-        handling.add_pricelist(list)
-
-    # Now, the dial number is provided somewhere:
-    dial = '4673212345'
-    handling.dial_number = dial
-    
-    # Find the operator providing the cheapest price:
-    cheapest_operator = handling.find_cheapest_operator()
-    assert cheapest_operator == 'operator_B.txt'
-    print('operator with cheapest price is: ', cheapest_operator)
 
 
