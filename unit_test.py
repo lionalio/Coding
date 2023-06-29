@@ -16,14 +16,23 @@ class TestHandlingOperator(unittest.TestCase):
         handling.dial_number = dial
         self.assertEqual(handling.find_cheapest_operator(), ['operator_B.txt'], "Incorrect operator")
         
+    def test_empty_operator(self):
+        print('\n=== Running test case without any pricelist ===')
+        handling = HandlingOperator()
+        pricelists = []
+        dial = '4673212345'
+        handling.add_all_pricelists(pricelists)
+        handling.dial_number = dial
+        self.assertEqual(handling.find_cheapest_operator(), [], "Operator list is empty, so should return empty!")
+
     def test_none_match(self):
-        print('\n=== Running test case without any pricelist exist ===')
+        print('\n=== Running test case that operators does not contain any prefix for the dialed number ===')
         handling = HandlingOperator()
         pricelists = ['operator_A.txt', 'operator_B.txt']
         dial = '3214567890'
         handling.add_all_pricelists(pricelists)
         handling.dial_number = dial
-        self.assertEqual(handling.find_cheapest_operator(), [], "Operator should not exist, so return empty!")
+        self.assertEqual(handling.find_cheapest_operator(), [], "Operator should not exist, so should return empty!")
 
     def test_multiple_min_price(self):
         print('\n=== Running test case with more than one operator has minimum prices ===')

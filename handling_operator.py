@@ -1,5 +1,6 @@
 import re
 
+
 class HandlingOperator():
     '''
     Class for handling pricelist of all operators
@@ -37,9 +38,9 @@ class HandlingOperator():
 
     @property
     def dial_number(self):
-        """
+        '''
         The dial number property
-        """
+        '''
         return self._dial_number
     
     @dial_number.setter
@@ -114,6 +115,8 @@ class HandlingOperator():
         elif isinstance(pricelists, list):
             for ls in pricelists:
                 self.add_pricelist(ls)
+        else:
+            raise Exception("Invalid type of input: {}. Expecting list or file name".format(pricelists))
 
     def find_cheapest_operator(self):
         '''
