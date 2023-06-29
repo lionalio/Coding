@@ -15,3 +15,7 @@ When there is any input of dialed number, the class will check the entire list o
 The minimum price for a certain dialed number might exist for more than one operator, so the output should be in a list
 
 If no prefix exist for a certain dialed number, the result should be an empty list
+
+To run unit test, simple run:
+
+python unit_test.py
